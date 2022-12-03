@@ -1,12 +1,5 @@
 package com.product.price.query.exception;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-@Data
-@Builder
-@EqualsAndHashCode(callSuper = true)
 public class ServiceException extends Exception {
 
     private String code;

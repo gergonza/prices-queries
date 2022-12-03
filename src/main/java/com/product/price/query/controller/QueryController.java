@@ -3,7 +3,9 @@ package com.product.price.query.controller;
 import com.product.price.query.domain.dto.Response;
 import com.product.price.query.service.QueryService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +24,9 @@ public class QueryController {
     private final QueryService service;
 
     @GetMapping(path = "/details/get/{productId}/{brandId}/{applicationDate}")
-    public Response getPriceDetail(@PathVariable("productId") @Valid @NotBlank final int productId,
-                                   @PathVariable("brandId") @Valid @NotBlank final int brandId,
-                                   @PathVariable("applicationDate") @Valid @NotBlank final LocalDate applicationDate) {
+    public Response getPriceDetail(@PathVariable("productId") @Valid @Min(value = 1) final int productId,
+                                   @PathVariable("brandId") @Valid @Min(value = 1) final int brandId,
+                                   @PathVariable("applicationDate") @Valid @NotNull final LocalDate applicationDate) {
         return this.service.getPriceDetail(productId, brandId, applicationDate);
     }
 }
