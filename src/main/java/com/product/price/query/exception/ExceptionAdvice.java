@@ -1,7 +1,9 @@
 package com.product.price.query.exception;
 
+import static java.lang.String.valueOf;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import jakarta.validation.ConstraintViolationException;
 import java.util.HashMap;
@@ -21,10 +23,21 @@ public class ExceptionAdvice {
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getConstraintViolations().forEach(error -> {
-            String fieldName = String.valueOf(error.getPropertyPath());
+            String[] detail = valueOf(error.getPropertyPath()).split("\\.");
+            String fieldName = detail[1];
             String message = error.getMessage();
             errors.put(fieldName, message);
         });
         return new ResponseEntity<>(errors, BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(value = NOT_FOUND)
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+        Map<String, String> errors = new HashMap<>();
+        String fieldName = "priceDetail";
+        String message = ex.getMessage();
+        errors.put(fieldName, message);
+        return new ResponseEntity<>(errors, NOT_FOUND);
     }
 }

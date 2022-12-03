@@ -10,4 +10,9 @@ class QueryApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	public void main() {
+		QueryApplication.main(new String[] {});
+	}
+
 }

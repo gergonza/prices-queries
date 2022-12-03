@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ public class QueryController {
     @GetMapping(path = "/details/get/{productId}/{brandId}/{applicationDate}")
     public Response getPriceDetail(@PathVariable("productId") @Valid @Min(value = 1) final int productId,
                                    @PathVariable("brandId") @Valid @Min(value = 1) final int brandId,
-                                   @PathVariable("applicationDate") @Valid @NotNull final LocalDateTime applicationDateTime) {
+                                   @PathVariable("applicationDate") @Valid @DateTimeFormat(pattern = "yyyy-MM-dd-HH.mm.ss") @NotNull final LocalDateTime applicationDateTime) {
         return this.service.getPriceDetail(productId, brandId, applicationDateTime);
     }
 }
