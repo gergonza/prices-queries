@@ -1,23 +1,32 @@
 package com.product.price.query.domain.entity;
 
+import static jakarta.persistence.GenerationType.AUTO;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.persistence.Id;
-import lombok.Value;
-
-@Value
-@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "prices")
 public class Detail {
 
-    @Id int id;
-    int productId;
-    int brandId;
-    int priceListId;
-    int priority;
-    String curr;
-    LocalDateTime startDate;
-    LocalDateTime endDate;
-    BigDecimal price;
+    @Id @GeneratedValue(strategy = AUTO) private int id;
+    @Column(name = "product_id") private int productId;
+    @Column(name = "brand_id") private int brandId;
+    @Column(name = "price_list") private int priceListId;
+    private int priority;
+    private String curr;
+    @Column(name = "start_date") private LocalDateTime startDate;
+    @Column(name = "end_date") private LocalDateTime endDate;
+    private BigDecimal price;
 }

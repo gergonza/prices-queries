@@ -14,5 +14,5 @@ public class Response {
     private int priceListId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private BigDecimal totalPrice;
+    private BigDecimal price;
 }

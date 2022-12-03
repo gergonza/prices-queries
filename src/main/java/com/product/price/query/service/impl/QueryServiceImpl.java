@@ -38,7 +38,7 @@ public class QueryServiceImpl implements QueryService {
                 .priceListId(price.getPriceListId())
                 .startDate(price.getStartDate())
                 .endDate(price.getEndDate())
-                .totalPrice(price.getPrice())
+                .price(price.getPrice())
                 .build();
     }
 }

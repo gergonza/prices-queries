@@ -30,7 +30,7 @@ class ControllerTest {
                 .priceListId(1)
                 .startDate(of(2022, 12, 3, 0, 0, 0))
                 .endDate(of(2022, 12, 3, 23, 59, 59))
-                .totalPrice(new BigDecimal("35.50"))
+                .price(new BigDecimal("35.50"))
                 .build();
         when(this.service.getPriceDetail(1, 1,
                 of(2022, 12, 3, 14, 26, 0))).thenReturn(expected);
@@ -41,5 +41,4 @@ class ControllerTest {
         verify(this.service).getPriceDetail(1, 1,
                 of(2022, 12, 3, 14, 26, 0));
     }
-
 }

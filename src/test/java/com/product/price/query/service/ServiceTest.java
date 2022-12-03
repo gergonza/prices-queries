@@ -53,7 +53,7 @@ class ServiceTest {
                 .priceListId(1)
                 .startDate(of(2020, 6, 14, 0, 0, 0))
                 .endDate(of(2020, 12, 31, 23, 59, 59))
-                .totalPrice(new BigDecimal("35.50"))
+                .price(new BigDecimal("35.50"))
                 .build();
         when(this.repository.findAll()).thenReturn(details);
         assertThat(this.service.getPriceDetail(35455, 1,
@@ -89,7 +89,7 @@ class ServiceTest {
                 .priceListId(2)
                 .startDate(of(2020, 6, 14, 15, 0, 0))
                 .endDate(of(2020, 6, 14, 18, 30, 0))
-                .totalPrice(new BigDecimal("25.45"))
+                .price(new BigDecimal("25.45"))
                 .build();
         when(this.repository.findAll()).thenReturn(details);
         assertThat(this.service.getPriceDetail(35455, 1,
