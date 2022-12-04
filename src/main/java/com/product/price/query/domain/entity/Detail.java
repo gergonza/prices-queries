@@ -2,10 +2,8 @@ package com.product.price.query.domain.entity;
 
 import static jakarta.persistence.GenerationType.AUTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -18,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "prices")
+@Table(name = "prices", schema = "brands")
 public class Detail {
 
     @Id @GeneratedValue(strategy = AUTO) private int id;

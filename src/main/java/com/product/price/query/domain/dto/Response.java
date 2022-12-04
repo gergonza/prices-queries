@@ -20,5 +20,6 @@ public class Response {
     private LocalDateTime startDate;
     @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endDate;
+    @JsonFormat(shape = STRING)
     private BigDecimal price;
 }
