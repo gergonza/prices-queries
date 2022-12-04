@@ -11,6 +11,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Java Entity Representation that maps the Database Prices.
+ *
+ * @author Germán González
+ * @version 1.0
+ * @since 2022-12-03
+ *
+ */
 @Data
 @Builder
 @NoArgsConstructor

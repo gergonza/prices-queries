@@ -30,6 +30,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Class that supports the integration test related to the artifact.
+ *
+ * @author Germán González
+ * @version 1.0
+ * @since 2022-12-03
+ *
+ */
 @SpringBootTest(
         webEnvironment = MOCK,
         classes = QueryApplication.class)
@@ -56,6 +64,19 @@ class ControllerIntegrationTest {
         this.mvc = standaloneSetup(this.controller).setControllerAdvice(new ExceptionAdvice()).build();
     }
 
+    /**
+     * Test to evaluate the endpoint in a happy path scenario when it retrieves a valid product information.
+     *
+     * @param productId Identification of the Product
+     * @param brandId Identification of the Brand
+     * @param applicationDateTime DateTime of the Price Application
+     * @param priceListId Price List Identification
+     * @param startDate DateTime when starts a price band
+     * @param endDate DateTime when ends a price band
+     * @param price Price of the Product
+     * @throws Exception Exception Object to be thrown
+     *
+     */
     @ParameterizedTest
     @CsvFileSource(resources = "/test/csv/data.csv", numLinesToSkip = 1)
     void givenProductIdAndBrandIdAndApplicationDateWhenGetPriceDetailsThenStatusOk(int productId,
@@ -81,6 +102,15 @@ class ControllerIntegrationTest {
                 .andExpect(jsonPath("$.endDate").value(endDate.format(ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
 
+    /**
+     * Test to evaluate the endpoint when it could not retrieve products based the search criteria.
+     *
+     * @param productId Identification of the Product
+     * @param brandId Identification of the Brand
+     * @param applicationDateTime DateTime of the Price Application
+     * @throws Exception Exception Object to be thrown
+     *
+     */
     @ParameterizedTest
     @CsvFileSource(resources = "/test/csv/not-found-data.csv", numLinesToSkip = 1)
     void givenProductIdAndBrandIdAndApplicationDateWhenGetPriceDetailsThenStatusNotFound(int productId,
@@ -98,6 +128,16 @@ class ControllerIntegrationTest {
                         "There is no price information by this data: productId (" + productId + "), brandId (" + brandId + ") and applicationDateTime (" + dateTime + ")"));
     }
 
+    /**
+     * Test to evaluate the endpoint when the endpoint receives invalid data.
+     *
+     * @param productId Identification of the Product
+     * @param brandId Identification of the Brand
+     * @param applicationDateTime DateTime of the Price Application
+     * @param field Field to be used to get the information with the error
+     * @throws Exception Exception Object to be thrown
+     *
+     */
     @ParameterizedTest
     @CsvFileSource(resources = "/test/csv/invalid-data.csv", numLinesToSkip = 1)
     void givenProductIdAndBrandIdAndApplicationDateWhenGetPriceDetailsThenStatusBadRequest(int productId,
@@ -115,6 +155,13 @@ class ControllerIntegrationTest {
                 .andExpect(jsonPath("$." + field).value("must be greater than or equal to 1"));
     }
 
+    /**
+     * Method to convert a DateTime object with a first format in other object with a new format.
+     *
+     * @param dateTime DateTime Object with the original format
+     * @return A DateTime Object with a new format
+     *
+     */
     private LocalDateTime getFinalFormatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter pattern = ofPattern("yyyy-MM-dd-HH.mm.ss");
         return parse(dateTime.format(pattern), pattern);

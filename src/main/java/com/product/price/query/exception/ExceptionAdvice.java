@@ -14,10 +14,26 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Controller Advice that generates customized exceptions as endpoint responses.
+ *
+ * @author Germán González
+ * @version 1.0
+ * @since 2022-12-03
+ *
+ */
 @RestControllerAdvice
 @Order(HIGHEST_PRECEDENCE)
 public class ExceptionAdvice {
 
+    /**
+     * Controller Advice that handles when the Endpoint throws a ConstraintViolationException.
+     * This scenario happens when the endpoint receives an invalid parameter.
+     *
+     * @param ex Exception thrown and caught
+     * @return Response Entity with the exception information to be serialized by Spring Boot
+     *
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(value = BAD_REQUEST)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
@@ -31,6 +47,14 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errors, BAD_REQUEST);
     }
 
+    /**
+     * Controller Advice that handles when the Endpoint throws a NotFoundException.
+     * This scenario happens when the endpoint did not retrieve a product information based on the parameters got in the request.
+     *
+     * @param ex Exception thrown and caught
+     * @return Response Entity with the exception information to be serialized by Spring Boot
+     *
+     */
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value = NOT_FOUND)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {

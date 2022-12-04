@@ -15,12 +15,29 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service Implementation that enables the function and routines where to be used external APIs and database repositories.
+ *
+ * @author Germán González
+ * @version 1.0
+ * @since 2022-12-03
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class QueryServiceImpl implements QueryService {
 
     private final QueryRepository repository;
 
+    /**
+     * Implementation of the Method to invoke the feature of retrieve product information.
+     *
+     * @param productId Identification of the Product
+     * @param brandId Identification of the Brand
+     * @param applicationDateTime DateTime of the Price Application
+     * @return Response DTO with product information to be shown
+     *
+     */
     @Override
     public Response getPriceDetail(int productId, int brandId, LocalDateTime applicationDateTime) {
         LocalDateTime finalDateTime = getFinalFormatDateTime(applicationDateTime);
@@ -46,6 +63,13 @@ public class QueryServiceImpl implements QueryService {
                 .build();
     }
 
+    /**
+     * Method to convert a DateTime object with a first format in other object with a new format.
+     *
+     * @param dateTime DateTime Object with the original format
+     * @return A DateTime Object with a new format
+     *
+     */
     private LocalDateTime getFinalFormatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter pattern = ofPattern("yyyy-MM-dd HH:mm:ss");
         return parse(dateTime.format(pattern), pattern);

@@ -20,6 +20,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * Class that supports the unit tests related to the Controller Layer.
+ *
+ * @author Germán González
+ * @version 1.0
+ * @since 2022-12-03
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 class ServiceTest {
 
@@ -27,6 +35,10 @@ class ServiceTest {
 
     @InjectMocks private QueryServiceImpl service;
 
+    /**
+     * Test to evaluate the endpoint in a happy path scenario.
+     *
+     */
     @Test
     void testGetPriceDetailShouldReturnOk() {
         List<Detail> details = List.of(
@@ -80,6 +92,11 @@ class ServiceTest {
         verify(this.repository).findAll();
     }
 
+    /**
+     * Test to evaluate the endpoint in a happy path scenario when there are two or more rows sorted by priority.
+     * It should retrieve the row with the major priority.
+     *
+     */
     @Test
     void testGetPriceDetailShouldReturnOkWithTheMajorPriority() {
         List<Detail> details = List.of(
@@ -133,6 +150,10 @@ class ServiceTest {
         verify(this.repository).findAll();
     }
 
+    /**
+     * Test to evaluate the endpoint in a scenario where there is no products.
+     *
+     */
     @Test
     void testGetPriceDetailShouldReturnNotFoundException() {
         List<Detail> details = List.of(

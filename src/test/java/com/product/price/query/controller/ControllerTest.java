@@ -14,6 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * Class that supports the unit tests related to the Service Layer.
+ *
+ * @author Germán González
+ * @version 1.0
+ * @since 2022-12-03
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 class ControllerTest {
 
@@ -21,6 +29,10 @@ class ControllerTest {
 
     @InjectMocks private QueryController controller;
 
+    /**
+     * Test to evaluate the endpoint in a happy path scenario.
+     *
+     */
     @Test
     void testGetPriceDetailShouldReturnOk() {
         Response expected = Response
